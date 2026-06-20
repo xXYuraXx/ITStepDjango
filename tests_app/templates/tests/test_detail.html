@@ -2,11 +2,11 @@
 
 <h1>{{ test.name }}</h1>
 
-<img src="{{ test.image }}" width="300">
+<img src="{{ test.image }}" width="300" />
 
 <p>{{ test.description }}</p>
 <p>Автор: {{ test.author }}</p>
 
-<a href="{% url 'tests_list' %}">Назад</a>
+<a class="btn btn-secondary" onclick="window.history.back();">Назад</a>
 
 {% endblock %}

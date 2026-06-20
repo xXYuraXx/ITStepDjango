@@ -4,7 +4,9 @@ from tests_app import views
 urlpatterns = [
     path('', views.tests_list, name="tests_list"),
     path('about/', views.about, name="about"),
+    path('tests/admin/', views.admin_list, name="admin"),
     path('test/<int:test_id>/', views.test_detail, name='test_detail'),
+    path('test/delete/<int:test_id>/', views.test_delete, name="test_delete"),
 ]
 
 

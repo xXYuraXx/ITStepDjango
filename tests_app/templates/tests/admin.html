@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block content %}
+
+<h1>Admin panel tests</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for test in tests %}
+    <tr>
+      <th scope="row">{{ test.id }}</th>
+      <td><img width="50" src="{{ test.image }}"></img></td>
+      <td>{{ test.name }}</td>
+      <td>{{ test.author }}</td>
+      <td>
+        <a href={% url 'test_detail' test.id %}><button type="button" class="btn btn-primary">View</button></a>
+        <a href={% url 'test_delete' test.id %}><button type="button" class="btn btn-danger">Delete</button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
