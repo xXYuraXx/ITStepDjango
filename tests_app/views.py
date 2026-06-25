@@ -10,7 +10,7 @@ def about(request):
     return render(request, 'tests/about.html')
 
 def test_detail(request, test_id):
-    test = Test.objects.get(id=test_id)
+    test = get_object_or_404(Test, id=test_id)
     return render(request, 'tests/test_detail.html', {'test' : test})
 
 def admin_list(request):

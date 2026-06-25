@@ -1,12 +1,17 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1>{{ test.name }}</h1>
+<div class="test-info-bg d-flex flex-column">
 
-<img src="{{ test.image }}" width="300" />
+<h1 class="my-3">{{ test.name }}</h1>
+
+<img class="w-50 align-self-center my-5" src="{{ test.image }}" />
 
 <p>{{ test.description }}</p>
 <p>Автор: {{ test.author }}</p>
 
-<a class="btn btn-secondary" onclick="window.history.back();">Назад</a>
+<a class="btn btn-success align-self-start" onclick="alert('Не реалізовано')">Розпочати</a>
 
+<a class="btn btn-secondary mt-2 align-self-start" onclick="window.history.back();">Назад</a>
+
+</div>
 {% endblock %}

@@ -23,5 +23,18 @@ body {
 .testy-label {
     margin: 150px 0;
     text-align: center;
-    color: rgb(255, 255, 255);
+}
+
+.test-info-bg {
+    box-shadow: 0 -150px 100px 40px rgba(0, 84, 101, 0.2);
+    min-height: 100%;
+    padding: 20px;
+
+}
+
+.main-footer {
+    background-color: white;
+}
+.main-footer * {
+    color:black;
 }

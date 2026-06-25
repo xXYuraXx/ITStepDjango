@@ -1,23 +1,30 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1 class="testy-label">Testy - the world of the most interesting tests.</h1>
+<h1 class="testy-label">
+  Testy - the
+  <span style="background-color: black; color: white; padding: 5px">world</span>
+  of the most interesting
+  <span style="text-decoration: underline wavy black 2px">tests</span>.
+</h1>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-
   {% for test in tests %}
-    <div class="col">
-      <a class="text-decoration-none" href="{% url 'test_detail' test.id %}">
-    <div class="test-card card h-100">
-      <img src="{{ test.image }}" class="card-img-top" alt="{{ test.name }}" />
-      <div class="card-body">
-        <h5 class="card-title">{{ test.name }}</h5>
-        <p class="card-text">{{ test.author }}</p>
+  <div class="col">
+    <a class="text-decoration-none" href="{% url 'test_detail' test.id %}">
+      <div class="test-card card h-100">
+        <img
+          src="{{ test.image }}"
+          class="card-img-top"
+          alt="{{ test.name }}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ test.name }}</h5>
+          <p class="card-text">{{ test.author }}</p>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
   </div>
   {% endfor %}
-  
 </div>
 
 {% endblock %}
