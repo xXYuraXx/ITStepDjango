@@ -1,5 +1,27 @@
+body {
+    font-family: "Chiron GoRound TC", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+    background-image: url('main-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .card img {
     /* height: 200px; */
     object-fit: contain;
     padding: 10px;
+}
+
+.test-card {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.testy-label {
+    margin: 150px 0;
+    text-align: center;
+    color: rgb(255, 255, 255);
 }
