@@ -19,12 +19,12 @@ You can also check [Docker image](https://hub.docker.com/r/piprock/testy-django-
 ### Download
 
 ```cmd
-docker pull piprock/testy-django-app
+docker pull piprock/testy-django-app:latest
 ```
 
 ### Run
 ```cmd
-docker run -d -p 8000:8000 piprock/testy-django-app
+docker run -d -p 8000:8000 piprock/testy-django-app:latest
 ```
 
 Go to http://localhost:8000/
