@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_APP_PATH=/app
+        - BUILD_USER_NAME=django_user
+    image: piprock/testy-django-app:latest
+    container_name: testy-django-app
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_PORT=8000

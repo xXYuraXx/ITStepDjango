@@ -26,6 +26,10 @@ docker pull piprock/testy-django-app:latest
 ```cmd
 docker run -d -p 8000:8000 piprock/testy-django-app:latest
 ```
+### Or docker compose
+```cmd
+docker compose up -d
+```
 
 Go to http://localhost:8000/
 
