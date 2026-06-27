@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1>Admin panel tests</h1>
+<h1 class="my-3">Admin panel tests</h1>
 
 <table class="table">
   <thead>
@@ -21,11 +21,14 @@
       <td>{{ test.author }}</td>
       <td>
         <a href={% url 'test_detail' test.id %}><button type="button" class="btn btn-primary">View</button></a>
+        <a href={% url 'test_edit' test.id %}><button type="button" class="btn btn-secondary">Edit</button></a>
         <a href={% url 'test_delete' test.id %}><button type="button" class="btn btn-danger">Delete</button></a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<a href="{% url 'test_create' %}" class="btn btn-primary">Create New Test</a>
 
 {% endblock %}
