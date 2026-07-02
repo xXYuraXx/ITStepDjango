@@ -1,35 +1,148 @@
 [
-    {
-        "model" : "tests_app.Test",
-        "pk" : 1,
-        "fields" : {
-            "name": "Додавання і віднімання раціональних чисел ",
-            "description": "Математика 6 клас",
-            "author" : "Яремків О. В.",
-            "image": "https://www.englishdom.com/dynamicus/blog-post/000/002/256/1621948173_content_700x455.jpg",
-            "created_at": "2024-01-15T10:00:00Z"
-        }
-    },
-    {
-        "model" : "tests_app.Test",
-        "pk" : 2,
-        "fields" : {
-            "name": "\"Різдвяна пісня в прозі\" ",
-            "description": "Зарубіжна література 6 клас",
-            "author" : "Бовда О. ",
-            "image": "https://naurok-test.nyc3.cdn.digitaloceanspaces.com/145717/images/502457_1557645597.jpg",
-            "created_at": "2024-01-15T10:00:00Z"
-        }
-    },
-    {
-        "model" : "tests_app.Test",
-        "pk" : 3,
-        "fields" : {
-            "name": "Дієслово ",
-            "description": "Українська мова 4 клас",
-            "author" : "Некрашевич С. А.",
-            "image": "https://www.bsmu.edu.ua/wp-content/uploads/2023/10/003axj-dbc4.jpg",
-            "created_at": "2024-01-15T10:00:00Z"
-        }
+  {
+    "model": "tests_app.User",
+    "pk": 1,
+    "fields": { "name": "Яремків О. В." }
+  },
+  {
+    "model": "tests_app.User",
+    "pk": 2,
+    "fields": { "name": "Бовда О." }
+  },
+  {
+    "model": "tests_app.User",
+    "pk": 3,
+    "fields": { "name": "Некрашевич С. А." }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 1,
+    "fields": { "name": "Other" }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 2,
+    "fields": { "name": "Educational" }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 3,
+    "fields": { "name": "Nature" }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 4,
+    "fields": { "name": "Games" }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 5,
+    "fields": { "name": "Films" }
+  },
+  {
+    "model": "tests_app.Genre",
+    "pk": 6,
+    "fields": { "name": "Sport" }
+  },
+  {
+    "model": "tests_app.Test",
+    "pk": 1,
+    "fields": {
+      "name": "Додавання і віднімання раціональних чисел ",
+      "description": "Математика 6 клас",
+      "genre": 2,
+      "author": 1,
+      "image": "https://www.englishdom.com/dynamicus/blog-post/000/002/256/1621948173_content_700x455.jpg",
+      "created_at": "2024-01-15T10:00:00Z"
     }
+  },
+  {
+    "model": "tests_app.Test",
+    "pk": 2,
+    "fields": {
+      "name": "\"Різдвяна пісня в прозі\" ",
+      "description": "Зарубіжна література 6 клас",
+      "genre": 2,
+      "author": 2,
+      "image": "https://naurok-test.nyc3.cdn.digitaloceanspaces.com/145717/images/502457_1557645597.jpg",
+      "created_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "tests_app.Test",
+    "pk": 3,
+    "fields": {
+      "name": "Дієслово ",
+      "description": "Українська мова 4 клас",
+      "genre": 2,
+      "author": 3,
+      "image": "https://www.bsmu.edu.ua/wp-content/uploads/2023/10/003axj-dbc4.jpg",
+      "created_at": "2024-01-15T10:00:00Z"
+    }
+  },
+
+
+
+  {
+    "model": "tests_app.Question",
+    "pk": 1,
+    "fields": {
+      "question_type": "single_select",
+      "question_text": "Скільки буде -5 + 3?",
+      "correct_val": 1.0,
+      "test": 1
+    }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 1,
+    "fields": { "text": "-2", "is_correct": true, "question": 1 }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 2,
+    "fields": { "text": "2", "is_correct": false, "question": 1 }
+  },
+
+  {
+    "model": "tests_app.Question",
+    "pk": 2,
+    "fields": {
+      "question_type": "single_select",
+      "question_text": "Як звали головного героя повісті 'Різдвяна пісня в прозі'?",
+      "correct_val": 1.0,
+      "test": 2
+    }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 3,
+    "fields": { "text": "Ебенезер Скрудж", "is_correct": true, "question": 2 }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 4,
+    "fields": { "text": "Джейкоб Марлі", "is_correct": false, "question": 2 }
+  },
+
+  {
+    "model": "tests_app.Question",
+    "pk": 3,
+    "fields": {
+      "question_type": "single_select",
+      "question_text": "Яка частина мови відповідає на питання 'що робити?'?",
+      "correct_val": 2.0,
+      "test": 3
+    }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 5,
+    "fields": { "text": "Іменник", "is_correct": false, "question": 3 }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 6,
+    "fields": { "text": "Дієслово", "is_correct": true, "question": 3 }
+  }
 ]

@@ -18,7 +18,7 @@
       <th scope="row">{{ test.id }}</th>
       <td><img width="50" src="{{ test.image }}"></img></td>
       <td>{{ test.name }}</td>
-      <td>{{ test.author }}</td>
+      <td>{{ test.author.name }}</td>
       <td>
         <a href={% url 'test_detail' test.id %}><button type="button" class="btn btn-primary">View</button></a>
         <a href={% url 'test_edit' test.id %}><button type="button" class="btn btn-secondary">Edit</button></a>

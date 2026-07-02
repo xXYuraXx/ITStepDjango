@@ -12,11 +12,17 @@
   <div class="col">
     <a class="text-decoration-none" href="{% url 'test_detail' test.id %}">
       <div class="test-card card h-100">
-        <img
-          src="{{ test.image }}"
-          class="card-img-top"
-          alt="{{ test.name }}"
-        />
+        <div class="card-img-container">
+          <img
+            src="{{ test.image }}"
+            class="card-img-top"
+            alt="{{ test.name }}"
+          />
+          <div class="card-view-info">
+            <i class="bi bi-eye"></i>
+            <span>{{ test.count_views }}</span>
+          </div>
+        </div>
         <div class="card-body">
           <h5 class="card-title">{{ test.name }}</h5>
           <p class="card-text">{{ test.author }}</p>

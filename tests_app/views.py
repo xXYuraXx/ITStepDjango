@@ -12,6 +12,8 @@ def about(request):
 
 def test_detail(request, test_id):
     test = get_object_or_404(Test, id=test_id)
+    test.count_views += 1
+    test.save()
     return render(request, 'tests/test_detail.html', {'test' : test})
 
 def admin_list(request):

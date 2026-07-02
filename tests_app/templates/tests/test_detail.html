@@ -1,4 +1,8 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %}
+
+{% block content %}
+
+
 
 <div class="test-info-bg d-flex flex-column">
 
@@ -6,8 +10,9 @@
 
 <img class="w-50 align-self-center my-5" src="{{ test.image }}" />
 
-<p>{{ test.description }}</p>
-<p>Автор: {{ test.author }}</p>
+<p>Опис: {{ test.description }}</p>
+<p>Автор: {{ test.author.name }}</p>
+<p>Жанр: {{ test.genre.name }}</p>
 
 <a class="btn btn-success align-self-start" onclick="alert('Не реалізовано')">Розпочати</a>
 
