@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from tests_app.models import Test
 from tests_app.forms import test
+from django.contrib import messages
 
 # Create your views here.
 def tests_list(request):
@@ -23,6 +24,7 @@ def admin_list(request):
 def test_delete(request, test_id):
     test = get_object_or_404(Test, id=test_id)
     test.delete()
+    messages.success(request, 'Test deleted successfully!')
     return redirect("admin")
 
 def test_create(request):
@@ -30,6 +32,7 @@ def test_create(request):
         form = test.TestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Test created successfully!')
             return redirect('/tests/admin/')
         else:
             return render(request, 'tests/create.html', {'form': form})
@@ -45,6 +48,7 @@ def test_edit(request, test_id):
         form = test.TestForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Test edited successfully!')
             return redirect('/tests/admin/')
         else:
             return render(request, 'tests/edit.html', {'form': form})

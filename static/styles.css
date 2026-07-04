@@ -57,3 +57,32 @@ body {
 
 
 }
+
+.admin-actions-buttons {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.admin-test-row:hover .admin-actions-buttons {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.admin-td-img > img {
+    transition: 0.3s ease-in-out;
+    border-radius: 0px;
+}
+
+.admin-td-img:hover > img {
+    transform: scale(2);
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.admin-table tr {
+    
+}
+
+.admin-table tr:hover {
+    
+}

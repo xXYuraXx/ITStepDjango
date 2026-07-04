@@ -2,7 +2,7 @@
 
 <h1 class="my-3">Admin panel tests</h1>
 
-<table class="table">
+<table class="table admin-table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -16,7 +16,7 @@
     {% for test in tests %}
     <tr class="admin-test-row">
       <th scope="row">{{ test.id }}</th>
-      <td>
+      <td class="admin-td-img">
         {% if test.image %}
         <img width="50" src="{{ test.image.url }}"></img>
         {% else %}
@@ -46,4 +46,33 @@
 
 <a href="{% url 'test_create' %}" class="btn btn-primary">Create New Test</a>
 
+{% if messages %}
+{% for msg in messages %}
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+  <div id="toastBlock" class="toast align-items-center text-bg-{% if msg.tags == 'error' %}danger{% else %}success{% endif %} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ msg }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+{% block scripts %}
+{% if messages %}
+<script>
+  const toastBlock = document.getElementById('toastBlock')
+
+  if (toastBlock) {
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastBlock)
+    toastBootstrap.show()
+  }
+</script>
+{% endif %}
 {% endblock %}
