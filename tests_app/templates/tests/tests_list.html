@@ -13,11 +13,21 @@
     <a class="text-decoration-none" href="{% url 'test_detail' test.id %}">
       <div class="test-card card h-100">
         <div class="card-img-container">
+
+          {% if test.image %}
           <img
-            src="{{ test.image }}"
+            src="{{ test.image.url }}"
             class="card-img-top"
             alt="{{ test.name }}"
           />
+          {% else %}
+          <img
+            src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+            class="card-img-top"
+            alt="{{ test.name }}"
+          />
+          {% endif %}
+
           <div class="card-view-info">
             <i class="bi bi-eye"></i>
             <span>{{ test.count_views }}</span>

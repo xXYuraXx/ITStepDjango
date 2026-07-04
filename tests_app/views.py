@@ -27,7 +27,7 @@ def test_delete(request, test_id):
 
 def test_create(request):
     if request.method == "POST":
-        form = test.TestForm(request.POST)
+        form = test.TestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/tests/admin/')
@@ -42,7 +42,7 @@ def test_edit(request, test_id):
     item = get_object_or_404(Test, id=test_id)
     
     if request.method == "POST":
-        form = test.TestForm(request.POST, instance=item)
+        form = test.TestForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
             return redirect('/tests/admin/')

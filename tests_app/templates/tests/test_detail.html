@@ -8,7 +8,11 @@
 
 <h1 class="my-3">{{ test.name }}</h1>
 
-<img class="w-50 align-self-center my-5" src="{{ test.image }}" />
+{% if test.image %}
+<img class="w-50 align-self-center my-5" src="{{ test.image.url }}" />
+{% else %}
+<img class="w-50 align-self-center my-5" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" />
+{% endif %}
 
 <p>Опис: {{ test.description }}</p>
 <p>Автор: {{ test.author.name }}</p>

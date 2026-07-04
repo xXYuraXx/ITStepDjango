@@ -3,15 +3,21 @@ from django.db import models
 # Create your models here.
 class User(models.Model):
     name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
 
 class Genre(models.Model):
     name = models.CharField(default="other", max_length=100)
+    
+    def __str__(self):
+        return self.name
 
 class Test(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, related_name="tests", on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
-    image = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="test_images/", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     count_views = models.IntegerField(default=0)
     genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
