@@ -1,6 +1,35 @@
 {% extends "layout.html" %} {% block content %}
 
-<h1 class="my-3">Seach test by id</h1>
-<p>Ви можете пройти створені користувачами тести</p>
+{% load static %}
+
+<div class="mx-auto w-50 my-5" style="width: fit-content;">
+    <img class="w-100 border rounded" src="{% static "car-wash.jpg" %}" alt="">
+</div>
+
+<form id="search_form" class="input-group">
+    <input class="form-control border-end-0 border rounded-pill" 
+           type="text" 
+           placeholder="Enter test ID" 
+           id="input_search_by_id" 
+           required>
+    
+    <span class="input-group-append">
+        <button class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3" type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+    </span>
+</form>
 
 {% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById("search_form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    var id = document.getElementById("input_search_by_id").value;
+    window.location.href = "{% url "test_detail" 0 %}".replace("0", id);
+})
+
+
+</script>
+{% endblock scripts %}

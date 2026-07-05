@@ -86,3 +86,12 @@ body {
 .admin-table tr:hover {
     
 }
+
+.test-detail-img {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.search-button:hover {
+    background-color: black !important;
+    border-color: black !important;
+}

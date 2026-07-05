@@ -1,5 +1,9 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+is_load_from_azure = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,7 +18,7 @@ SECRET_KEY = 'django-insecure-+cjdr$d(3m^@b109ronom8-tsn3^e5jr^o(noqhs!er+yp2yq(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -112,3 +116,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
+
+
+if is_load_from_azure:
+    AZURE_CONTAINER_MEDIA = "media"
+    AZURE_CONTAINER_STATIC = "static"
+
+    AZURE_ACCOUNT_NAME = "testy0app"
+    AZURE_ACCOUNT_KEY = os.getenv("AZURE_STORAGE_KEY")
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.azure_storage.AzureStorage",
+            "OPTIONS": {
+                "account_name": AZURE_ACCOUNT_NAME,
+                "account_key": AZURE_ACCOUNT_KEY,
+                "azure_container": AZURE_CONTAINER_MEDIA,
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.azure_storage.AzureStorage",
+            "OPTIONS": {
+                "account_name": AZURE_ACCOUNT_NAME,
+                "account_key": AZURE_ACCOUNT_KEY,
+                "azure_container": AZURE_CONTAINER_STATIC,
+            },
+        }
+    }

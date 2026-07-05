@@ -52,7 +52,7 @@
       "description": "Математика 6 клас",
       "genre": 2,
       "author": 1,
-      "image": "https://www.englishdom.com/dynamicus/blog-post/000/002/256/1621948173_content_700x455.jpg",
+      "image": "test_images/1621948173_content_700x455.jpg",
       "created_at": "2024-01-15T10:00:00Z"
     }
   },
@@ -64,7 +64,7 @@
       "description": "Зарубіжна література 6 клас",
       "genre": 2,
       "author": 2,
-      "image": "https://naurok-test.nyc3.cdn.digitaloceanspaces.com/145717/images/502457_1557645597.jpg",
+      "image": "test_images/502457_1557645597.jpg",
       "created_at": "2024-01-15T10:00:00Z"
     }
   },
@@ -76,7 +76,7 @@
       "description": "Українська мова 4 клас",
       "genre": 2,
       "author": 3,
-      "image": "https://www.bsmu.edu.ua/wp-content/uploads/2023/10/003axj-dbc4.jpg",
+      "image": "test_images/003axj-dbc4.jpg",
       "created_at": "2024-01-15T10:00:00Z"
     }
   },

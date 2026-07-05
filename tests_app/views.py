@@ -57,4 +57,6 @@ def test_edit(request, test_id):
     form = test.TestForm(instance=item)
     return render(request, 'tests/edit.html', {'form': form})
         
-        
+
+def search_by_id(request):
+    return render(request, 'tests/search_by_id.html')
