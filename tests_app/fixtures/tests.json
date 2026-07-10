@@ -82,67 +82,142 @@
   },
 
 
-
+  
   {
     "model": "tests_app.Question",
-    "pk": 1,
+    "pk": 10,
     "fields": {
       "question_type": "single_select",
       "question_text": "Скільки буде -5 + 3?",
-      "correct_val": 1.0,
-      "test": 1
+      "correct_val": 1.0
     }
   },
   {
     "model": "tests_app.Option",
-    "pk": 1,
-    "fields": { "text": "-2", "is_correct": true, "question": 1 }
+    "pk": 100,
+    "fields": { "text": "-2", "is_correct": true, "question": 10 }
   },
   {
     "model": "tests_app.Option",
-    "pk": 2,
-    "fields": { "text": "2", "is_correct": false, "question": 1 }
+    "pk": 101,
+    "fields": { "text": "2", "is_correct": false, "question": 10 }
   },
 
   {
+    "model": "tests_app.TestQuestion",
+    "pk": 100,
+    "fields": { "test": 1, "question": 10, "order": 1 }
+  },
+
+
+
+  {
     "model": "tests_app.Question",
-    "pk": 2,
+    "pk": 11,
+    "fields": {
+      "question_type": "single_select",
+      "question_text": "Скільки буде 10 * 10?",
+      "correct_val": 2.0
+    }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 110,
+    "fields": { "text": "100", "is_correct": true, "question": 11 }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 111,
+    "fields": { "text": "20", "is_correct": false, "question": 11 }
+  },
+
+  {
+    "model": "tests_app.TestQuestion",
+    "pk": 101,
+    "fields": { "test": 1, "question": 11, "order": 2 }
+  },
+
+
+
+  {
+    "model": "tests_app.Question",
+    "pk": 12,
+    "fields": {
+      "question_type": "single_select",
+      "question_text": "2x + 4 = 8. Яке значення x?",
+      "correct_val": 2.0
+    }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 120,
+    "fields": { "text": "4", "is_correct": false, "question": 12 }
+  },
+  {
+    "model": "tests_app.Option",
+    "pk": 121,
+    "fields": { "text": "2", "is_correct": true, "question": 12 }
+  },
+
+  {
+    "model": "tests_app.TestQuestion",
+    "pk": 102,
+    "fields": { "test": 1, "question": 12, "order": 3 }
+  },
+
+
+
+
+  {
+    "model": "tests_app.Question",
+    "pk": 20,
     "fields": {
       "question_type": "single_select",
       "question_text": "Як звали головного героя повісті 'Різдвяна пісня в прозі'?",
-      "correct_val": 1.0,
-      "test": 2
+      "correct_val": 1.0
     }
   },
   {
     "model": "tests_app.Option",
-    "pk": 3,
-    "fields": { "text": "Ебенезер Скрудж", "is_correct": true, "question": 2 }
+    "pk": 200,
+    "fields": { "text": "Ебенезер Скрудж", "is_correct": true, "question": 20 }
   },
   {
     "model": "tests_app.Option",
-    "pk": 4,
-    "fields": { "text": "Джейкоб Марлі", "is_correct": false, "question": 2 }
+    "pk": 201,
+    "fields": { "text": "Джейкоб Марлі", "is_correct": false, "question": 20 }
   },
 
   {
+    "model": "tests_app.TestQuestion",
+    "pk": 200,
+    "fields": { "test": 2, "question": 20, "order": 1 }
+  },
+
+
+  {
     "model": "tests_app.Question",
-    "pk": 3,
+    "pk": 30,
     "fields": {
       "question_type": "single_select",
       "question_text": "Яка частина мови відповідає на питання 'що робити?'?",
-      "correct_val": 2.0,
-      "test": 3
+      "correct_val": 2.0
     }
   },
   {
     "model": "tests_app.Option",
-    "pk": 5,
-    "fields": { "text": "Іменник", "is_correct": false, "question": 3 }
+    "pk": 300,
+    "fields": { "text": "Іменник", "is_correct": false, "question": 30 }
   },
   {
     "model": "tests_app.Option",
-    "pk": 6,
-    "fields": { "text": "Дієслово", "is_correct": true, "question": 3 }
+    "pk": 301,
+    "fields": { "text": "Дієслово", "is_correct": true, "question": 30 }
+  },
+
+  {
+    "model": "tests_app.TestQuestion",
+    "pk": 300,
+    "fields": { "test": 3, "question": 30, "order": 1 }
   }
 ]

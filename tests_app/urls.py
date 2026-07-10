@@ -10,6 +10,7 @@ urlpatterns = [
     path('test/create/', views.test_create, name='test_create'),
     path('test/edit/<int:test_id>/', views.test_edit, name="test_edit"),
     path('test/search_by_id', views.search_by_id, name="search_by_id"),
+    path('test/<int:test_id>/<int:question_order>/', views.test_question, name='test_question'),
     
 ]
 

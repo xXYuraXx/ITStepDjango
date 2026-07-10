@@ -20,7 +20,7 @@
 <p>Автор: {{ test.author.name }}</p>
 <p>Жанр: {{ test.genre.name }}</p>
 
-<a class="btn btn-success align-self-start" onclick="alert('Не реалізовано')">Розпочати</a>
+<a class="btn btn-success align-self-start" href="{% url "test_question" test.id 1 %}">Розпочати</a>
 
 <a class="btn btn-secondary mt-2 align-self-start" onclick="window.history.back();">Назад</a>
 

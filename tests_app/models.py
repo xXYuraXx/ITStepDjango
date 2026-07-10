@@ -34,9 +34,13 @@ class Question(models.Model):
     question_type = models.CharField(choices=QUESTION_TYPES, max_length=100)
     question_text = models.CharField(blank=False, null=False, max_length=1000)
     correct_val = models.FloatField()
-    
-    test = models.ForeignKey(Test, related_name="questions", on_delete=models.CASCADE)
-    
+
+class TestQuestion(models.Model):
+    test = models.ForeignKey(Test, related_name="test_questions", on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name="test_questions", on_delete=models.CASCADE)
+    order = models.IntegerField(default=1)
+
+
 class Option(models.Model):
     text = models.CharField(max_length=100)
     is_correct = models.BooleanField()

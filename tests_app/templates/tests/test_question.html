@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block content %}
+
+{% load static %}
+
+<div class="mx-auto w-50 my-5" style="width: fit-content;">
+    <img class="w-100 border rounded" src="{% static "car-wash.jpg" %}" alt="">
+</div>
+
+<form id="question-form">
+  <div class="form-group">
+    <h1>{{ question.question_text }}</h1>
+  </div>
+  <div class="form-group" id="answer_options">
+    
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const answerOptionsContainer = document.getElementById("answer_options");
+    for (let i = 0; i < {{ options|length }}; i++) {
+        const formCheckDiv = document.createElement("div");
+        formCheckDiv.className = "form-check";
+
+        const formCheckInput = document.createElement("input");
+        formCheckInput.className = "form-check-input";
+        formCheckInput.type = "radio";
+        formCheckInput.name = "answerOptions";
+        formCheckInput.id = `option${i + 1}`;
+        formCheckInput.value = `option${i + 1}`;
+        formCheckDiv.appendChild(formCheckInput);
+
+        const formCheckLabel = document.createElement("label");
+        formCheckLabel.className = "form-check-label";
+        formCheckLabel.htmlFor = `option${i + 1}`;
+        formCheckLabel.textContent = `{{ options }}`;
+        formCheckDiv.appendChild(formCheckLabel);
+
+        answerOptionsContainer.appendChild(formCheckDiv);
+    }
+});
+
+document.getElementById("question-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    window.location.href = "{% url "test_question" 0 0 %}".replace("0", {{ test_id }}).replace("0", {{ question_order }} + 1);
+})
+
+</script>
+{% endblock scripts %}

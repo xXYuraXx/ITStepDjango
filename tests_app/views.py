@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from tests_app.models import Test
-from tests_app.forms import test
+from tests_app.models import Test, TestQuestion
+from tests_app.forms import test_form
 from django.contrib import messages
 
 # Create your views here.
@@ -29,7 +29,7 @@ def test_delete(request, test_id):
 
 def test_create(request):
     if request.method == "POST":
-        form = test.TestForm(request.POST, request.FILES)
+        form = test_form.TestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Test created successfully!')
@@ -38,14 +38,14 @@ def test_create(request):
             return render(request, 'tests/create.html', {'form': form})
     
     # GET
-    form = test.TestForm()
+    form = test_form.TestForm()
     return render(request, 'tests/create.html', {'form': form})
 
 def test_edit(request, test_id):
     item = get_object_or_404(Test, id=test_id)
     
     if request.method == "POST":
-        form = test.TestForm(request.POST, request.FILES, instance=item)
+        form = test_form.TestForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
             messages.success(request, 'Test edited successfully!')
@@ -54,9 +54,25 @@ def test_edit(request, test_id):
             return render(request, 'tests/edit.html', {'form': form})
     
     # GET
-    form = test.TestForm(instance=item)
+    form = test_form.TestForm(instance=item)
     return render(request, 'tests/edit.html', {'form': form})
         
 
 def search_by_id(request):
     return render(request, 'tests/search_by_id.html')
+
+def test_question(request, test_id, question_order):
+    test_item = get_object_or_404(Test, id=test_id)
+    testQuestion = TestQuestion.objects.filter(test=test_item, order=question_order).first()
+    question = testQuestion.question
+    opts = question.options.all()
+    
+    if request.method == "POST":
+        return render(request, 'tests/test_question.html', {'test': test_item, 'question': question, 'options': opts})
+    
+    # GET
+    return render(request, 'tests/test_question.html', {'test': test_item,
+                                                        'question': question,
+                                                        'options': opts,
+                                                        'test_id': test_id,
+                                                        'question_order': question_order})
