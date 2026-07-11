@@ -79,14 +79,6 @@ body {
     transition: 0.3s ease-in-out;
 }
 
-.admin-table tr {
-    
-}
-
-.admin-table tr:hover {
-    
-}
-
 .test-detail-img {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -94,4 +86,38 @@ body {
 .search-button:hover {
     background-color: black !important;
     border-color: black !important;
+}
+
+
+#angel-wing-left {
+    animation: moveAndSpinLeft 4s ease-in-out infinite;
+}
+
+#angel-wing-right {
+    transform: scaleX(-1);
+    animation: moveAndSpinRight 4s ease-in-out infinite ;
+}
+
+@keyframes moveAndSpinLeft {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-50px) translateY(20px) rotate(-20deg) scaleX(0.8);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes moveAndSpinRight {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg) scaleX(-1);;
+  }
+  50% {
+    transform: translateX(50px) translateY(20px) rotate(20deg) scaleX(-0.8);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg) scaleX(-1);
+  }
 }

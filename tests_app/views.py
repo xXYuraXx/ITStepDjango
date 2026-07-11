@@ -41,7 +41,7 @@ def test_create(request):
     form = test_form.TestForm()
     return render(request, 'tests/create.html', {'form': form})
 
-def test_edit(request, test_id):
+def test_edit(request, test_id, return_url=None):
     item = get_object_or_404(Test, id=test_id)
     
     if request.method == "POST":
@@ -49,6 +49,8 @@ def test_edit(request, test_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Test edited successfully!')
+            if return_url:
+                return redirect(return_url)
             return redirect('/tests/admin/')
         else:
             return render(request, 'tests/edit.html', {'form': form})

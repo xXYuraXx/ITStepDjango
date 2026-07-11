@@ -8,7 +8,7 @@
 
 <div class="d-flex flex-row justify-content-between align-items-center">
 <h1 class="my-3">{{ test.name }}</h1>
-<a href="{% url 'test_edit' test.id %}" class="btn btn-sm btn-outline-secondary">
+<a href="{% url 'test_edit_return' test.id request.path %}" class="btn btn-sm btn-outline-secondary">
 <i class="bi bi-pen-fill"></i>
 </a>
 
