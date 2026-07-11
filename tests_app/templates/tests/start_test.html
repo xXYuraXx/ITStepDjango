@@ -6,13 +6,7 @@
 
 <div class="test-info-bg d-flex flex-column">
 
-<div class="d-flex flex-row justify-content-between align-items-center">
 <h1 class="my-3">{{ test.name }}</h1>
-<a href="{% url 'test_edit' test.id %}" class="btn btn-sm btn-outline-secondary">
-<i class="bi bi-pen-fill"></i>
-</a>
-
-</div>
 
 <div class="d-flex flex-column my-3 test-detail-img">
     {% if test.image %}
