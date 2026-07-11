@@ -75,12 +75,13 @@ def test_question(request, test_id, question_order):
         test_repo.set_score(request, test_id, 0)
         
     test_item = get_object_or_404(Test, id=test_id)
-    is_question_exists = TestQuestion.objects.filter(test=test_item, order=question_order).exists()
+    testQuestion = TestQuestion.objects.filter(test=test_item, order=question_order).first()
+    is_question_exists = testQuestion is not None
+    
     if is_question_exists == False:
         messages.info(request, 'You have completed the test, your score is: ' + str(test_repo.get_score(request, test_id)))
         return redirect('test_detail', test_id=test_id)
     
-    testQuestion = TestQuestion.objects.filter(test=test_item, order=question_order).first()
     question = testQuestion.question
     
     if request.method == "POST":
@@ -90,13 +91,14 @@ def test_question(request, test_id, question_order):
         
         selected_option_id = request.POST.get('testQuestions')
         selected_option = question.options.filter(id=selected_option_id).first()
+        
         value = 0
-        if selected_option and selected_option.is_correct:
-            messages.info(request, 'Correct!')
-            value = question.correct_val
-        else:
-            pass
-            messages.info(request, 'Incorrect.')
+        if selected_option:
+            if selected_option.is_correct:
+                messages.info(request, 'Correct!')
+                value = question.correct_value
+            else:
+                messages.info(request, 'Incorrect.')
         
         test_repo.add_score(request, test_id, value=value)
         return redirect('test_question', test_id=test_id, question_order=question_order + 1)
@@ -109,4 +111,4 @@ def test_question(request, test_id, question_order):
                                                         'options': options,
                                                         'test_id': test_id,
                                                         'question_order': question_order,
-                                                        'curent_score': test_repo.get_score(request, test_id)})
+                                                        'current_score': test_repo.get_score(request, test_id)})
