@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from tests_app.models import Test, TestQuestion
 from tests_app.forms import test_form
 from django.contrib import messages
+from tests_app import test_repo
 
 # Create your views here.
 def tests_list(request):
@@ -63,18 +64,49 @@ def test_edit(request, test_id, return_url=None):
 def search_by_id(request):
     return render(request, 'tests/search_by_id.html')
 
+
 def test_question(request, test_id, question_order):
+    
+    if question_order < 1:
+        messages.error(request, 'Invalid question order.')
+        return redirect('test_detail', test_id=test_id)
+    
+    if question_order == 1:
+        test_repo.set_score(request, test_id, 0)
+        
     test_item = get_object_or_404(Test, id=test_id)
+    is_question_exists = TestQuestion.objects.filter(test=test_item, order=question_order).exists()
+    if is_question_exists == False:
+        messages.info(request, 'You have completed the test, your score is: ' + str(test_repo.get_score(request, test_id)))
+        return redirect('test_detail', test_id=test_id)
+    
     testQuestion = TestQuestion.objects.filter(test=test_item, order=question_order).first()
     question = testQuestion.question
-    opts = question.options.all()
     
     if request.method == "POST":
-        return render(request, 'tests/test_question.html', {'test': test_item, 'question': question, 'options': opts})
+        if 'testQuestions' not in request.POST:
+            messages.error(request, 'Please select an answer before submitting.')
+            return redirect('test_question', test_id=test_id, question_order=question_order)
+        
+        selected_option_id = request.POST.get('testQuestions')
+        selected_option = question.options.filter(id=selected_option_id).first()
+        value = 0
+        if selected_option and selected_option.is_correct:
+            messages.info(request, 'Correct!')
+            value = question.correct_val
+        else:
+            pass
+            messages.info(request, 'Incorrect.')
+        
+        test_repo.add_score(request, test_id, value=value)
+        return redirect('test_question', test_id=test_id, question_order=question_order + 1)
     
     # GET
+    options = question.options.all()
+    
     return render(request, 'tests/test_question.html', {'test': test_item,
                                                         'question': question,
-                                                        'options': opts,
+                                                        'options': options,
                                                         'test_id': test_id,
-                                                        'question_order': question_order})
+                                                        'question_order': question_order,
+                                                        'curent_score': test_repo.get_score(request, test_id)})
