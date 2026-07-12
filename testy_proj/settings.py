@@ -137,6 +137,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
 
+SESSION_COOKIE_NAME = '__session'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 if is_load_from_azure:
     AZURE_CONTAINER_MEDIA = "media"
     AZURE_CONTAINER_STATIC = "static"
@@ -184,7 +188,7 @@ if is_load_from_cloudflare:
             },
         },
         "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
     
