@@ -1,17 +1,14 @@
-#!/bin/sh
-
-set -e
+#!/usr/bin/env bash
 
 echo "=== Running Database Migrations ==="
-python manage.py migrate --noinput
+python manage.py migrate --noinput || echo "Migrations skipped."
 
 echo "=== Collecting Static Files ==="
-python manage.py collectstatic --noinput || true
+python manage.py collectstatic --noinput || echo "Static files collection skipped."
 
-if [ -f "tests.json" ]; then
-    echo "=== Loading Fixtures ==="
-    python manage.py loaddata tests.json || echo "Fixtures already loaded or skipped."
-fi
+echo "=== Loading Fixtures ==="
+python manage.py loaddata tests.json || echo "Fixtures skipped."
+
 
 echo "=== Starting Application ==="
 exec "$@"
