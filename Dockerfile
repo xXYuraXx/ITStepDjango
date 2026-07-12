@@ -22,5 +22,8 @@ USER ${USER_NAME}
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 
-ENV APP_PORT=8000
-CMD [ "sh", "-c", "exec gunicorn --bind 0.0.0.0:${APP_PORT} testy_proj.wsgi:application" ]
+ENV PORT=8080
+
+EXPOSE 8080
+
+CMD [ "sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-8080} testy_proj.wsgi:application" ]

@@ -19,7 +19,20 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-+cjdr$d(3m^@b109ron
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    'my-django-portfolio.web.app',
+    'my-django-portfolio.firebaseapp.com',
+    '.run.app',
+    'localhost',
+    '127.0.0.1',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://my-django-portfolio.web.app',
+    'https://my-django-portfolio.firebaseapp.com',
+    'https://*.run.app',
+]
 
 
 # Application definition
@@ -123,7 +136,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
-
 
 if is_load_from_azure:
     AZURE_CONTAINER_MEDIA = "media"

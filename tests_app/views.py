@@ -79,6 +79,8 @@ def test_question(request, test_id, question_order):
     is_question_exists = testQuestion is not None
     
     if is_question_exists == False:
+        storage = messages.get_messages(request)
+        storage.used = True
         messages.info(request, 'You have completed the test, your score is: ' + str(test_repo.get_score(request, test_id)))
         return redirect('test_detail', test_id=test_id)
     
@@ -96,9 +98,10 @@ def test_question(request, test_id, question_order):
         if selected_option:
             if selected_option.is_correct:
                 messages.info(request, 'Correct!')
-                value = question.correct_value
+                value = question.correct_val
             else:
-                messages.info(request, 'Incorrect.')
+                messages.error(request, 'Incorrect.')
+                pass
         
         test_repo.add_score(request, test_id, value=value)
         return redirect('test_question', test_id=test_id, question_order=question_order + 1)
