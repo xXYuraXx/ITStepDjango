@@ -23,4 +23,4 @@ USER ${USER_NAME}
 ENTRYPOINT [ "./entrypoint.sh" ]
 
 ENV APP_PORT=8000
-CMD [ "sh", "-c", "exec python manage.py runserver 0.0.0.0:${APP_PORT}" ]
+CMD [ "sh", "-c", "exec gunicorn --bind 0.0.0.0:${APP_PORT} testy_proj.wsgi:application" ]
