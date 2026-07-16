@@ -1,34 +1,80 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %}
+{% block content %}
 
-{% load static %}
+<div class="row justify-content-center my-4">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <div class="text-body-secondary">Question {{ question_order }} of {{ progress_total }}</div>
+            <h1 class="h3 mb-0">{{ question.question_text }}</h1>
+          </div>
+          <div class="badge text-bg-dark fs-6">Score: {{ current_score }}</div>
+        </div>
 
-<div class="mx-auto w-50 my-5" style="width: fit-content;">
-    <img class="w-100 border rounded" src="{% static "car-wash.jpg" %}" alt="">
+        <form method="post">
+          {% csrf_token %}
+
+          {% if question.question_type == 'single_select' %}
+            <div class="d-grid gap-2">
+              {% for option in options %}
+                <label class="btn btn-outline-primary text-start">
+                  <input class="form-check-input me-2" type="radio" name="selected_option" value="{{ option.id }}">
+                  {{ option.text }}
+                </label>
+              {% endfor %}
+            </div>
+          {% elif question.question_type == 'multi_select' %}
+            <div class="d-grid gap-2">
+              {% for option in options %}
+                <label class="btn btn-outline-primary text-start">
+                  <input class="form-check-input me-2" type="checkbox" name="selected_options" value="{{ option.id }}">
+                  {{ option.text }}
+                </label>
+              {% endfor %}
+            </div>
+          {% elif question.question_type == 'text_input' %}
+            <div class="mb-3">
+              <label class="form-label" for="text-answer">Your answer</label>
+              <input class="form-control" type="text" id="text-answer" name="text_answer" placeholder="Type your answer">
+            </div>
+          {% elif question.question_type == 'matching' %}
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th>Left</th>
+                    <th>Match</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for option in options %}
+                    <tr>
+                      <td>{{ option.text }}</td>
+                      <td>
+                        <select class="form-select" name="match_{{ option.id }}">
+                          <option value="">Choose...</option>
+                          {% for choice in match_choices %}
+                            <option value="{{ choice }}">{{ choice }}</option>
+                          {% endfor %}
+                        </select>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+
+          <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-outline-secondary" href="{% url 'test_detail' test.id %}">Back to test</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-<form id="question-form" method="POST">
-  {% csrf_token %}
-  <div class="form-group">
-    <h1>{{ question.question_text }}</h1>
-  </div>
-  <div class="form-group" id="answer_options">
-    {% for option in options %}
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="testQuestions" id="{{ option.id }}" value="{{ option.id }}">
-    <label class="form-check-label" for="{{ option.id }}">
-        {{ option.text }}
-    </label>
-    </div>
-    {% endfor %}
-  </div>
-  <p>Current Score: {{ curent_score }}</p>
-  <button type="submit" class="btn btn-primary">Submit</button> 
-</form>
-
-
-
 {% endblock %}
-
-{% block scripts %}
-
-{% endblock scripts %}

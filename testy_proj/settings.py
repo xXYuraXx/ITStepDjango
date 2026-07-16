@@ -124,6 +124,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 
 if is_load_from_azure:
     AZURE_CONTAINER_MEDIA = "media"

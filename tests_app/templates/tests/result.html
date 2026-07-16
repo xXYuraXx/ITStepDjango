@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center my-5">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+          <div>
+            <div class="text-body-secondary">Test completed</div>
+            <h1 class="h3 mb-0">{{ test.name }}</h1>
+          </div>
+          <div class="text-end">
+            <div class="fs-5 fw-semibold">{{ score }} / {{ total_points }}</div>
+            <div class="text-body-secondary">Total points</div>
+          </div>
+        </div>
+
+        <div class="list-group mb-4">
+          {% for row in answer_rows %}
+          <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+              <div>
+                <div class="fw-semibold">{{ row.question.order }}. {{ row.question.question_text }}</div>
+                <div class="text-body-secondary">{{ row.question.get_question_type_display }}</div>
+              </div>
+              {% if row.answer.is_correct %}
+              <span class="badge text-bg-success">Correct</span>
+              {% else %}
+              <span class="badge text-bg-danger">Incorrect</span>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-primary" href="{% url 'test_detail' test.id %}">Back to test</a>
+          <a class="btn btn-outline-secondary" href="{% url 'test_start' test.id %}">Retake</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

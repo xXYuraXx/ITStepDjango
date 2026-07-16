@@ -17,7 +17,7 @@
 </div>
 
 <p>Опис: {{ test.description }}</p>
-<p>Автор: {{ test.author.name }}</p>
+<p>Автор: {{ test.author.get_full_name|default:test.author.username }}</p>
 <p>Жанр: {{ test.genre.name }}</p>
 
 <a class="btn btn-success align-self-start" href="{% url "test_question" test.id 1 %}">Розпочати</a>

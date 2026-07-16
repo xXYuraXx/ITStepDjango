@@ -1,8 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+
+from favorites_app import views
 
 urlpatterns = [
-    # path('/', view),
+    path('', views.favorites_list, name='favorites_list'),
+    path('toggle/<int:test_id>/', views.favorite_toggle, name='favorite_toggle'),
 ]

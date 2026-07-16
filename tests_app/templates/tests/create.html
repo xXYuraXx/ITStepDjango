@@ -1,22 +1,368 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %}
 
-<h1 class="my-3">Create Test</h1>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center my-4 flex-wrap gap-3">
+  <div>
+    <h1 class="mb-1">Create Test</h1>
+    <p class="text-body-secondary mb-0">Add as many questions and answers as you need in one save.</p>
+  </div>
+</div>
 
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %} 
+  {% csrf_token %}
 
-  <div class="form-group">
+  <div class="card p-3 mb-4">
+    <h3 class="h5 mb-3">Test Information</h3>
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
     {% for field in form %}
-    <div class="mb-3">
-      {{ field.label_tag }} {{ field }} 
-      {% if field.errors %}
-      <div class="invalid-feedback d-block">{{ field.errors }}</div>
-      {% endif %}
-    </div>
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}
+          <div class="form-text">{{ field.help_text }}</div>
+        {% endif %}
+        {% if field.errors %}
+          <div class="invalid-feedback d-block">{{ field.errors }}</div>
+        {% endif %}
+      </div>
     {% endfor %}
   </div>
 
-  <button type="submit" class="btn btn-primary">Create</button>
+  <div class="card p-3 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <h3 class="h5 mb-0">Questions</h3>
+      <button type="button" class="btn btn-outline-primary" id="add-question">Add question</button>
+    </div>
+
+    <div id="questions-wrapper" class="d-grid gap-3">
+      {% for question in question_blocks %}
+      <div class="question-block border rounded p-3 bg-light" data-question-index="{{ question.index }}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="h6 mb-0">Question <span class="question-number">{{ question.index|add:1 }}</span></h4>
+          <button type="button" class="btn btn-sm btn-outline-danger remove-question">Remove</button>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="id_question_{{ question.index }}_question_type">Question type</label>
+            <select class="form-select question-type-select" name="question_{{ question.index }}_question_type" id="id_question_{{ question.index }}_question_type">
+              {% for value, label in question_types %}
+                <option value="{{ value }}" {% if question.question_type == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label" for="id_question_{{ question.index }}_correct_val">Points</label>
+            <input class="form-control" type="number" step="0.01" name="question_{{ question.index }}_correct_val" id="id_question_{{ question.index }}_correct_val" value="{{ question.correct_val }}">
+          </div>
+          <div class="col-md-3 correct-text-field">
+            <label class="form-label" for="id_question_{{ question.index }}_correct_text">Correct text</label>
+            <input class="form-control" type="text" name="question_{{ question.index }}_correct_text" id="id_question_{{ question.index }}_correct_text" value="{{ question.correct_text }}">
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="id_question_{{ question.index }}_question_text">Question text</label>
+            <textarea class="form-control" rows="3" name="question_{{ question.index }}_question_text" id="id_question_{{ question.index }}_question_text">{{ question.question_text }}</textarea>
+          </div>
+        </div>
+
+        <div class="mt-4 option-section">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="h6 mb-0">Options</h5>
+            <button type="button" class="btn btn-sm btn-outline-primary add-option">Add option</button>
+          </div>
+          <div class="options-wrapper d-grid gap-3">
+            {% for option in question.options %}
+            <div class="option-row border rounded p-3 bg-white" data-option-index="{{ option.index }}">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <strong class="small text-body-secondary">Option <span class="option-number">{{ option.index|add:1 }}</span></strong>
+                <button type="button" class="btn btn-sm btn-outline-danger remove-option">Remove</button>
+              </div>
+              <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                  <label class="form-label" for="id_question_{{ question.index }}_option_{{ option.index }}_text">Text</label>
+                  <input class="form-control option-text-input" type="text" name="question_{{ question.index }}_option_{{ option.index }}_text" id="id_question_{{ question.index }}_option_{{ option.index }}_text" value="{{ option.text }}">
+                </div>
+                <div class="col-md-4 option-correct-field">
+                  <div class="form-check mt-4">
+                    <input class="form-check-input option-correct-input" type="checkbox" name="question_{{ question.index }}_option_{{ option.index }}_is_correct" id="id_question_{{ question.index }}_option_{{ option.index }}_is_correct" {% if option.is_correct %}checked{% endif %}>
+                    <label class="form-check-label" for="id_question_{{ question.index }}_option_{{ option.index }}_is_correct">Correct</label>
+                  </div>
+                </div>
+                <div class="col-md-4 matching-field">
+                  <label class="form-label" for="id_question_{{ question.index }}_option_{{ option.index }}_match_text">Match text</label>
+                  <input class="form-control option-match-input" type="text" name="question_{{ question.index }}_option_{{ option.index }}_match_text" id="id_question_{{ question.index }}_option_{{ option.index }}_match_text" value="{{ option.match_text }}">
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary mb-5">Create Test</button>
 </form>
 
+<template id="question-template">
+  <div class="question-block border rounded p-3 bg-light" data-question-index="__Q__">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="h6 mb-0">Question <span class="question-number">__N__</span></h4>
+      <button type="button" class="btn btn-sm btn-outline-danger remove-question">Remove</button>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label" for="id_question___Q___question_type">Question type</label>
+        <select class="form-select question-type-select" name="question___Q___question_type" id="id_question___Q___question_type">
+          {% for value, label in question_types %}
+            <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="id_question___Q___correct_val">Points</label>
+        <input class="form-control" type="number" step="0.01" name="question___Q___correct_val" id="id_question___Q___correct_val" value="1">
+      </div>
+      <div class="col-md-3 correct-text-field">
+        <label class="form-label" for="id_question___Q___correct_text">Correct text</label>
+        <input class="form-control" type="text" name="question___Q___correct_text" id="id_question___Q___correct_text">
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="id_question___Q___question_text">Question text</label>
+        <textarea class="form-control" rows="3" name="question___Q___question_text" id="id_question___Q___question_text"></textarea>
+      </div>
+    </div>
+
+    <div class="mt-4 option-section">
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="h6 mb-0">Options</h5>
+        <button type="button" class="btn btn-sm btn-outline-primary add-option">Add option</button>
+      </div>
+      <div class="options-wrapper d-grid gap-3"></div>
+    </div>
+  </div>
+</template>
+
+<template id="option-template">
+  <div class="option-row border rounded p-3 bg-white" data-option-index="__O__">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <strong class="small text-body-secondary">Option <span class="option-number">__ON__</span></strong>
+      <button type="button" class="btn btn-sm btn-outline-danger remove-option">Remove</button>
+    </div>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label" for="id_question___Q___option___O___text">Text</label>
+        <input class="form-control option-text-input" type="text" name="question___Q___option___O___text" id="id_question___Q___option___O___text">
+      </div>
+      <div class="col-md-4 option-correct-field">
+        <div class="form-check mt-4">
+          <input class="form-check-input option-correct-input" type="checkbox" name="question___Q___option___O___is_correct" id="id_question___Q___option___O___is_correct">
+          <label class="form-check-label" for="id_question___Q___option___O___is_correct">Correct</label>
+        </div>
+      </div>
+      <div class="col-md-4 matching-field">
+        <label class="form-label" for="id_question___Q___option___O___match_text">Match text</label>
+        <input class="form-control option-match-input" type="text" name="question___Q___option___O___match_text" id="id_question___Q___option___O___match_text">
+      </div>
+    </div>
+  </div>
+</template>
+
+{% block scripts %}
+<script>
+(() => {
+  const wrapper = document.getElementById('questions-wrapper');
+  const questionTemplate = document.getElementById('question-template');
+  const optionTemplate = document.getElementById('option-template');
+  const addQuestionButton = document.getElementById('add-question');
+
+  const cloneFromTemplate = (template, replacements) => {
+    let html = template.innerHTML;
+    Object.entries(replacements).forEach(([token, value]) => {
+      html = html.replaceAll(token, value);
+    });
+    const container = document.createElement('div');
+    container.innerHTML = html.trim();
+    return container.firstElementChild;
+  };
+
+  const updateOptionRow = (optionRow, questionIndex, optionIndex) => {
+    optionRow.dataset.optionIndex = optionIndex;
+    optionRow.querySelector('.option-number').textContent = optionIndex + 1;
+
+    optionRow.querySelectorAll('[name]').forEach((element) => {
+      element.name = element.name
+        .replace(/question_\d+_option_\d+_/g, `question_${questionIndex}_option_${optionIndex}_`)
+        .replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+
+    optionRow.querySelectorAll('[id]').forEach((element) => {
+      element.id = element.id
+        .replace(/question_\d+_option_\d+_/g, `question_${questionIndex}_option_${optionIndex}_`)
+        .replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+
+    optionRow.querySelectorAll('label[for]').forEach((label) => {
+      label.htmlFor = label.htmlFor
+        .replace(/question_\d+_option_\d+_/g, `question_${questionIndex}_option_${optionIndex}_`)
+        .replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+  };
+
+  const updateQuestionBlock = (questionBlock, questionIndex) => {
+    questionBlock.dataset.questionIndex = questionIndex;
+    questionBlock.querySelector('.question-number').textContent = questionIndex + 1;
+
+    questionBlock.querySelectorAll('[name]').forEach((element) => {
+      element.name = element.name.replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+
+    questionBlock.querySelectorAll('[id]').forEach((element) => {
+      element.id = element.id.replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+
+    questionBlock.querySelectorAll('label[for]').forEach((label) => {
+      label.htmlFor = label.htmlFor.replace(/question_\d+_/g, `question_${questionIndex}_`);
+    });
+
+    const optionRows = questionBlock.querySelectorAll('.option-row');
+    optionRows.forEach((optionRow, optionIndex) => updateOptionRow(optionRow, questionIndex, optionIndex));
+    toggleQuestionState(questionBlock);
+  };
+
+  const syncQuestions = () => {
+    const questionBlocks = wrapper.querySelectorAll('.question-block');
+    questionBlocks.forEach((questionBlock, questionIndex) => updateQuestionBlock(questionBlock, questionIndex));
+  };
+
+  const setSectionDisabled = (section, disabled) => {
+    section.querySelectorAll('input, select, textarea').forEach((element) => {
+      if (element.classList.contains('remove-question') || element.classList.contains('remove-option') || element.classList.contains('add-option')) {
+        return;
+      }
+      element.disabled = disabled;
+    });
+  };
+
+  const toggleQuestionState = (questionBlock) => {
+    const questionType = questionBlock.querySelector('.question-type-select').value;
+    const optionSection = questionBlock.querySelector('.option-section');
+    const correctTextField = questionBlock.querySelector('.correct-text-field');
+    const optionRows = questionBlock.querySelectorAll('.option-row');
+
+    if (questionType === 'text_input') {
+      optionSection.classList.add('d-none');
+      correctTextField.classList.remove('d-none');
+      setSectionDisabled(optionSection, true);
+      correctTextField.querySelectorAll('input, select, textarea').forEach((element) => element.disabled = false);
+      return;
+    }
+
+    optionSection.classList.remove('d-none');
+    correctTextField.classList.add('d-none');
+    correctTextField.querySelectorAll('input, select, textarea').forEach((element) => element.disabled = true);
+
+    optionRows.forEach((optionRow) => {
+      const correctField = optionRow.querySelector('.option-correct-field');
+      const matchingField = optionRow.querySelector('.matching-field');
+      const optionInputs = optionRow.querySelectorAll('input, select, textarea');
+
+      if (questionType === 'matching') {
+        correctField.classList.add('d-none');
+        matchingField.classList.remove('d-none');
+        optionInputs.forEach((element) => {
+          if (element.classList.contains('option-correct-input')) {
+            element.disabled = true;
+          } else {
+            element.disabled = false;
+          }
+        });
+      } else {
+        correctField.classList.remove('d-none');
+        matchingField.classList.add('d-none');
+        optionInputs.forEach((element) => {
+          if (element.classList.contains('option-match-input')) {
+            element.disabled = true;
+          } else {
+            element.disabled = false;
+          }
+        });
+      }
+    });
+  };
+
+  const addOption = (questionBlock) => {
+    const questionIndex = Number(questionBlock.dataset.questionIndex);
+    const optionsWrapper = questionBlock.querySelector('.options-wrapper');
+    const optionIndex = optionsWrapper.querySelectorAll('.option-row').length;
+    const optionBlock = cloneFromTemplate(optionTemplate, {
+      '__Q__': questionIndex,
+      '__O__': optionIndex,
+      '__ON__': optionIndex + 1,
+    });
+    optionsWrapper.appendChild(optionBlock);
+    syncQuestions();
+  };
+
+  const addInitialOptions = (questionBlock) => {
+    addOption(questionBlock);
+    addOption(questionBlock);
+  };
+
+  addQuestionButton.addEventListener('click', () => {
+    const questionIndex = wrapper.querySelectorAll('.question-block').length;
+    const questionBlock = cloneFromTemplate(questionTemplate, {
+      '__Q__': questionIndex,
+      '__N__': questionIndex + 1,
+    });
+    wrapper.appendChild(questionBlock);
+    addInitialOptions(questionBlock);
+    syncQuestions();
+  });
+
+  wrapper.addEventListener('click', (event) => {
+    const addOptionButton = event.target.closest('.add-option');
+    const removeQuestionButton = event.target.closest('.remove-question');
+    const removeOptionButton = event.target.closest('.remove-option');
+
+    if (addOptionButton) {
+      const questionBlock = addOptionButton.closest('.question-block');
+      addOption(questionBlock);
+      return;
+    }
+
+    if (removeQuestionButton) {
+      removeQuestionButton.closest('.question-block').remove();
+      syncQuestions();
+      return;
+    }
+
+    if (removeOptionButton) {
+      removeOptionButton.closest('.option-row').remove();
+      syncQuestions();
+    }
+  });
+
+  wrapper.addEventListener('change', (event) => {
+    if (event.target.classList.contains('question-type-select')) {
+      toggleQuestionState(event.target.closest('.question-block'));
+    }
+  });
+
+  const existingQuestionBlocks = wrapper.querySelectorAll('.question-block');
+  existingQuestionBlocks.forEach((questionBlock) => {
+    const optionsWrapper = questionBlock.querySelector('.options-wrapper');
+    if (!optionsWrapper.querySelector('.option-row')) {
+      addInitialOptions(questionBlock);
+    }
+  });
+
+  syncQuestions();
+})();
+</script>
+{% endblock %}
 {% endblock %}

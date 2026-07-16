@@ -45,7 +45,10 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{ test.name }}</h5>
-          <p class="card-text">{{ test.author }}</p>
+          <p class="card-text">{{ test.author.get_full_name|default:test.author.username }}</p>
+          {% if test.id in favorite_ids %}
+          <span class="badge text-bg-warning">Favorite</span>
+          {% endif %}
         </div>
       </div>
     </a>
