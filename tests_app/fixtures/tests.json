@@ -1,223 +1,230 @@
 [
   {
-    "model": "tests_app.User",
+    "model": "auth.user",
     "pk": 1,
-    "fields": { "name": "Яремків О. В." }
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$6sTl9ti9ea6NblwqdMj16K$RQN8H+I5/q6rncp3JSR032tvJUMCq714yU1ETHSRKKo=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Яремків",
+      "last_name": "О. В.",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
   },
   {
-    "model": "tests_app.User",
+    "model": "auth.user",
     "pk": 2,
-    "fields": { "name": "Бовда О." }
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$kT7d93imCkrGndl58lpxQe$jscZfg6bQGAXN6rLOJZz8fceTqPqP1TdeM87wEdFJHQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "bovda",
+      "first_name": "Бовда",
+      "last_name": "О.",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
   },
   {
-    "model": "tests_app.User",
+    "model": "auth.user",
     "pk": 3,
-    "fields": { "name": "Некрашевич С. А." }
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$c10GEKnj63nGYa4mTB7uES$jdCpPaitoE0nUim4bnjLfo0JRfYvTkKfamkycS7vddo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "nekrash",
+      "first_name": "Некрашевич",
+      "last_name": "С. А.",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 1,
     "fields": { "name": "Other" }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 2,
     "fields": { "name": "Educational" }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 3,
     "fields": { "name": "Nature" }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 4,
     "fields": { "name": "Games" }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 5,
     "fields": { "name": "Films" }
   },
   {
-    "model": "tests_app.Genre",
+    "model": "tests_app.genre",
     "pk": 6,
     "fields": { "name": "Sport" }
   },
   {
-    "model": "tests_app.Test",
+    "model": "tests_app.test",
     "pk": 1,
     "fields": {
-      "name": "Додавання і віднімання раціональних чисел ",
+      "name": "Додавання і віднімання раціональних чисел",
       "description": "Математика 6 клас",
       "genre": 2,
       "author": 1,
       "image": "test_images/1621948173_content_700x455.jpg",
-      "created_at": "2024-01-15T10:00:00Z"
+      "created_at": "2024-01-15T10:00:00Z",
+      "count_views": 0
     }
   },
   {
-    "model": "tests_app.Test",
+    "model": "tests_app.test",
     "pk": 2,
     "fields": {
-      "name": "\"Різдвяна пісня в прозі\" ",
+      "name": "\"Різдвяна пісня в прозі\"",
       "description": "Зарубіжна література 6 клас",
       "genre": 2,
       "author": 2,
       "image": "test_images/502457_1557645597.jpg",
-      "created_at": "2024-01-15T10:00:00Z"
+      "created_at": "2024-01-15T10:00:00Z",
+      "count_views": 0
     }
   },
   {
-    "model": "tests_app.Test",
+    "model": "tests_app.test",
     "pk": 3,
     "fields": {
-      "name": "Дієслово ",
+      "name": "Дієслово",
       "description": "Українська мова 4 клас",
       "genre": 2,
       "author": 3,
       "image": "test_images/003axj-dbc4.jpg",
-      "created_at": "2024-01-15T10:00:00Z"
+      "created_at": "2024-01-15T10:00:00Z",
+      "count_views": 0
     }
   },
-
-
-  
   {
-    "model": "tests_app.Question",
+    "model": "tests_app.question",
     "pk": 10,
     "fields": {
+      "test": 1,
       "question_type": "single_select",
       "question_text": "Скільки буде -5 + 3?",
-      "correct_val": 1.0
+      "correct_val": 1.0,
+      "correct_text": "",
+      "order": 1
     }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 100,
-    "fields": { "text": "-2", "is_correct": true, "question": 10 }
+    "fields": { "text": "-2", "is_correct": true, "match_text": "", "question": 10 }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 101,
-    "fields": { "text": "2", "is_correct": false, "question": 10 }
+    "fields": { "text": "2", "is_correct": false, "match_text": "", "question": 10 }
   },
-
   {
-    "model": "tests_app.TestQuestion",
-    "pk": 100,
-    "fields": { "test": 1, "question": 10, "order": 1 }
-  },
-
-
-
-  {
-    "model": "tests_app.Question",
+    "model": "tests_app.question",
     "pk": 11,
     "fields": {
-      "question_type": "single_select",
-      "question_text": "Скільки буде 10 * 10?",
-      "correct_val": 2.0
+      "test": 1,
+      "question_type": "multi_select",
+      "question_text": "Оберіть усі прості числа серед наведених.",
+      "correct_val": 2.0,
+      "correct_text": "",
+      "order": 2
     }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 110,
-    "fields": { "text": "100", "is_correct": true, "question": 11 }
+    "fields": { "text": "2", "is_correct": true, "match_text": "", "question": 11 }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 111,
-    "fields": { "text": "20", "is_correct": false, "question": 11 }
+    "fields": { "text": "4", "is_correct": false, "match_text": "", "question": 11 }
   },
-
   {
-    "model": "tests_app.TestQuestion",
-    "pk": 101,
-    "fields": { "test": 1, "question": 11, "order": 2 }
+    "model": "tests_app.option",
+    "pk": 112,
+    "fields": { "text": "5", "is_correct": true, "match_text": "", "question": 11 }
   },
-
-
-
   {
-    "model": "tests_app.Question",
+    "model": "tests_app.question",
     "pk": 12,
     "fields": {
-      "question_type": "single_select",
+      "test": 1,
+      "question_type": "text_input",
       "question_text": "2x + 4 = 8. Яке значення x?",
-      "correct_val": 2.0
+      "correct_val": 2.0,
+      "correct_text": "2",
+      "order": 3
     }
   },
   {
-    "model": "tests_app.Option",
-    "pk": 120,
-    "fields": { "text": "4", "is_correct": false, "question": 12 }
-  },
-  {
-    "model": "tests_app.Option",
-    "pk": 121,
-    "fields": { "text": "2", "is_correct": true, "question": 12 }
-  },
-
-  {
-    "model": "tests_app.TestQuestion",
-    "pk": 102,
-    "fields": { "test": 1, "question": 12, "order": 3 }
-  },
-
-
-
-
-  {
-    "model": "tests_app.Question",
+    "model": "tests_app.question",
     "pk": 20,
     "fields": {
-      "question_type": "single_select",
-      "question_text": "Як звали головного героя повісті 'Різдвяна пісня в прозі'?",
-      "correct_val": 1.0
+      "test": 2,
+      "question_type": "matching",
+      "question_text": "Зіставте героя з твором.",
+      "correct_val": 1.0,
+      "correct_text": "",
+      "order": 1
     }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 200,
-    "fields": { "text": "Ебенезер Скрудж", "is_correct": true, "question": 20 }
+    "fields": { "text": "Ebenezer Scrooge", "is_correct": false, "match_text": "A Christmas Carol", "question": 20 }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 201,
-    "fields": { "text": "Джейкоб Марлі", "is_correct": false, "question": 20 }
+    "fields": { "text": "Mowgli", "is_correct": false, "match_text": "The Jungle Book", "question": 20 }
   },
-
   {
-    "model": "tests_app.TestQuestion",
-    "pk": 200,
-    "fields": { "test": 2, "question": 20, "order": 1 }
-  },
-
-
-  {
-    "model": "tests_app.Question",
+    "model": "tests_app.question",
     "pk": 30,
     "fields": {
+      "test": 3,
       "question_type": "single_select",
       "question_text": "Яка частина мови відповідає на питання 'що робити?'?",
-      "correct_val": 2.0
+      "correct_val": 2.0,
+      "correct_text": "",
+      "order": 1
     }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 300,
-    "fields": { "text": "Іменник", "is_correct": false, "question": 30 }
+    "fields": { "text": "Іменник", "is_correct": false, "match_text": "", "question": 30 }
   },
   {
-    "model": "tests_app.Option",
+    "model": "tests_app.option",
     "pk": 301,
-    "fields": { "text": "Дієслово", "is_correct": true, "question": 30 }
-  },
-
-  {
-    "model": "tests_app.TestQuestion",
-    "pk": 300,
-    "fields": { "test": 3, "question": 30, "order": 1 }
+    "fields": { "text": "Дієслово", "is_correct": true, "match_text": "", "question": 30 }
   }
 ]

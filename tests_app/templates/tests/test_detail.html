@@ -8,9 +8,11 @@
 
 <div class="d-flex flex-row justify-content-between align-items-center">
 <h1 class="my-3">{{ test.name }}</h1>
+{% if can_edit %}
 <a href="{% url 'test_edit_return' test.id request.path %}" class="btn btn-sm btn-outline-secondary">
 <i class="bi bi-pen-fill"></i>
 </a>
+{% endif %}
 
 </div>
 
@@ -23,10 +25,19 @@
 </div>
 
 <p>Опис: {{ test.description }}</p>
-<p>Автор: {{ test.author.name }}</p>
+<p>Автор: {{ test.author.get_full_name|default:test.author.username }}</p>
 <p>Жанр: {{ test.genre.name }}</p>
 
-<a class="btn btn-success align-self-start" href="{% url "test_question" test.id 1 %}">Розпочати</a>
+<div class="d-flex gap-2 flex-wrap">
+    <a class="btn btn-success align-self-start" href="{% url "test_start" test.id %}">Розпочати</a>
+
+    <form method="post" action="{% url 'favorite_toggle' test.id %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-warning align-self-start" type="submit">
+            {% if is_favorite %}Remove from favorites{% else %}Add to favorites{% endif %}
+        </button>
+    </form>
+</div>
 
 <a class="btn btn-secondary mt-2 align-self-start" onclick="window.history.back();">Назад</a>
 
