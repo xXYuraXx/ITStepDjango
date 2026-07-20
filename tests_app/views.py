@@ -3,6 +3,8 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db import transaction
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 
 from tests_app import test_repo
 from tests_app.forms import test_form
@@ -518,3 +520,18 @@ def test_result(request, test_id):
             'total_points': total_points,
         },
     )
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Registration successful. You are now logged in.')
+            next_url = request.GET.get('next') or request.POST.get('next') or '/'
+            return redirect(next_url)
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/register.html', {'form': form})
