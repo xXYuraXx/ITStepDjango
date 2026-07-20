@@ -296,6 +296,8 @@
   };
 
   const addOption = (questionBlock) => {
+    if (questionBlock.dataset.adding === '1') return;
+    questionBlock.dataset.adding = '1';
     const questionIndex = Number(questionBlock.dataset.questionIndex);
     const optionsWrapper = questionBlock.querySelector('.options-wrapper');
     const optionIndex = optionsWrapper.querySelectorAll('.option-row').length;
@@ -306,6 +308,7 @@
     });
     optionsWrapper.appendChild(optionBlock);
     syncQuestions();
+    setTimeout(() => { delete questionBlock.dataset.adding; }, 50);
   };
 
   const addInitialOptions = (questionBlock) => {
@@ -314,6 +317,8 @@
   };
 
   addQuestionButton.addEventListener('click', () => {
+    if (addQuestionButton.disabled) return;
+    addQuestionButton.disabled = true;
     const questionIndex = wrapper.querySelectorAll('.question-block').length;
     const questionBlock = cloneFromTemplate(questionTemplate, {
       '__Q__': questionIndex,
@@ -322,6 +327,7 @@
     wrapper.appendChild(questionBlock);
     addInitialOptions(questionBlock);
     syncQuestions();
+    setTimeout(() => { addQuestionButton.disabled = false; }, 50);
   });
 
   wrapper.addEventListener('click', (event) => {
